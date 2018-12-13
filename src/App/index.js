@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import './index.scss'
 import { useInput, preventDefault } from './index.hooks'
 
-const Form = ({ children }) => (
-  <form className="customForm" onSubmit={preventDefault}>
+const Form = ({ children, onSubmit }) => (
+  <form className="customForm"
+        onSubmit={(e) => preventDefault(e)(onSubmit)}
+  >
     {children}
   </form>
 )
@@ -11,7 +13,6 @@ const Form = ({ children }) => (
 const Input = ({ data }) => (
   <input
     className="reset input"
-    type="text"
     {...data}
   />
 )
@@ -19,6 +20,10 @@ const Input = ({ data }) => (
 const ButtonSubmit = () => (
   <button className="reset button" type="submit">save</button>
 )
+
+const onSubmit = (data) => {
+  console.log('on submit', data)
+}
 
 const AppTemplate = ({ appName, firstname, lastname }) => (
   <div className="app">
@@ -29,7 +34,7 @@ const AppTemplate = ({ appName, firstname, lastname }) => (
     </header>
 
     <div className="content">
-      <Form>
+      <Form onSubmit={() => onSubmit({firstname, lastname})}>
         <Input data={firstname} />
         <Input data={lastname} />
         <ButtonSubmit />

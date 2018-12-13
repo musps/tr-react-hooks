@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
-export function useInput(defaultValue = '') {
+export function useInput(
+  placeHolder= '',
+  defaultValue = '',
+  type = 'text'
+) {
   const [value, setValue] = useState(defaultValue)
 
   function onChange(e) {
@@ -9,10 +13,16 @@ export function useInput(defaultValue = '') {
 
   return {
     value,
-    onChange
+    onChange,
+    placeholder: placeHolder,
+    type
   }
 }
 
 export function preventDefault(e) {
   e.preventDefault()
+
+  return function (onSubmit) {
+    onSubmit.call()
+  }
 }
