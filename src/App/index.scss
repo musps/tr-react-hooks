@@ -1,0 +1,52 @@
+.app {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9fa;
+}
+
+.header {
+  height: 56px;
+  background-color: white;
+  box-shadow: 0 1px 12px 0 rgba(25, 25, 34, 0.3);
+
+  .title {
+    color: black;
+    font-size: 20px;
+    line-height: 56px;
+    text-align: center;
+  }
+}
+
+.content {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+
+.customForm {
+  .reset {
+    width: 100%;
+    height: 46px;
+    padding: 0 10px;
+    font-size: 16px;
+    border: 0;
+  }
+
+  .input {
+    background-color: #e08283;
+    color: white;
+    margin: 0 0 10px 0;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  .button {
+    text-align: right;
+    text-transform: uppercase;
+    background-color: #ececec;
+  }
+}
