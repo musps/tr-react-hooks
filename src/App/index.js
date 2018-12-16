@@ -1,56 +1,44 @@
 import React, { useState, useEffect } from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { AnimatedSwitch } from 'react-router-transition'
+
 import './index.scss'
-import { useInput, preventDefault } from './index.hooks'
 
-const Form = ({ children, onSubmit }) => (
-  <form className="customForm"
-        onSubmit={(e) => preventDefault(e)(onSubmit)}
-  >
-    {children}
-  </form>
+import Template from './index.template.js'
+
+import Step1 from '../Pages/Step/step_1'
+import Step2 from '../Pages/Step/step_2'
+import Step3 from '../Pages/Step/step_3'
+
+const CustomSwitch = ({ children }) => (
+  <Switch>
+    <AnimatedSwitch
+      atEnter={{ opacity: 0 }}
+      atLeave={{ opacity: 0 }}
+      atActive={{ opacity: 1 }}
+      className="switch-wrapper"
+    >
+      {children}
+    </AnimatedSwitch>
+  </Switch>
 )
 
-const Input = ({ data }) => (
-  <input
-    className="reset input"
-    {...data}
-  />
+const Router = () => (
+  <CustomSwitch>
+    <Route exact path="/" component={Step1} />
+    <Route path="/step2" component={Step2} />
+    <Route path="/step3" component={Step3} />
+  </CustomSwitch>
 )
 
-const ButtonSubmit = () => (
-  <button className="reset button" type="submit">save</button>
-)
-
-const onSubmit = (data) => {
-  console.log('on submit', data)
+function App() {
+  return (
+    <BrowserRouter>
+      <Template pageName="app name">
+        <Router />
+      </Template>
+    </BrowserRouter>
+  )
 }
 
-const AppTemplate = ({ appName, firstname, lastname }) => (
-  <div className="app">
-    <header className="header">
-      <h1 className="title">
-        {appName}
-      </h1>
-    </header>
-
-    <div className="content">
-      <Form onSubmit={() => onSubmit({firstname, lastname})}>
-        <Input data={firstname} />
-        <Input data={lastname} />
-        <ButtonSubmit />
-      </Form>
-    </div>
-  </div>
-)
-
-function AppContainer() {
-  const state = {
-    appName: 'app name',
-    firstname: useInput('firstname'),
-    lastname: useInput('lastname')
-  }
-
-  return (<AppTemplate {...state} />)
-}
-
-export default AppContainer
+export default App

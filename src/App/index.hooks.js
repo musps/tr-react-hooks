@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import './index.hooks.scss'
 
 export function useInput(
-  placeHolder= '',
+  placeHolder = '',
   defaultValue = '',
   type = 'text'
 ) {
@@ -26,3 +27,24 @@ export function preventDefault(e) {
     onSubmit.call()
   }
 }
+
+export const Form = ({ children, onSubmit }) => (
+  <form className="customForm"
+        onSubmit={(e) => preventDefault(e)(onSubmit)}
+  >
+    {children}
+  </form>
+)
+
+export const Input = ({ data }) => (
+  <input
+    className="reset input"
+    {...data}
+  />
+)
+
+export const ButtonSubmit = ({ name }) => (
+  <button className="reset button" type="submit">
+    {name}
+  </button>
+)
